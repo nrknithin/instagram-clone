@@ -5,12 +5,13 @@ export const DataContext = createContext();
 export function DataContextProvider({children}) {
   const [bookmark, setBookmark] = useState([]);
   useEffect(() => {
-    console.log('danger');
-    AsyncStorage.getItem('APP::BOOKMARK').then((value) => {
-      if (value) {
-        setBookmark(JSON.parse(value));
-      }
-    });
+    AsyncStorage.getItem('APP::BOOKMARK')
+      .then((value) => {
+        if (value) {
+          setBookmark(JSON.parse(value));
+        }
+      })
+      .catch((e) => console.log(e));
   }, []);
   useEffect(() => {
     if (bookmark !== null) {
@@ -19,7 +20,6 @@ export function DataContextProvider({children}) {
   }, [bookmark]);
   const addBookmark = (item) => {
     setBookmark([...bookmark, item]);
-    console.log(bookmark);
   };
   const removeBookmark = (id) => {
     setBookmark(
@@ -27,7 +27,6 @@ export function DataContextProvider({children}) {
         return bk.id !== id;
       }),
     );
-    console.log(bookmark);
   };
 
   return (

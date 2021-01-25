@@ -11,13 +11,14 @@ export function Feed({item, navigation, hideComment}) {
 
   const addRemoveBK = (feed) => {
     bkicon ? removeBookmark(feed.id) : addBookmark(feed);
+    setBkicon(!bkicon);
   };
   useEffect(() => {
     let newbkicon = bookmark.filter((bk) => {
       return bk.id === item.id;
     });
     setBkicon(newbkicon.length ? true : false);
-  });
+  }, []);
   return (
     <View style={styles.card}>
       <View

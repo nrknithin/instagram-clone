@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import {getFeeds} from '../api/Api';
 import FeedLauncher from '../components/FeedLauncher';
 

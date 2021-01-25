@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
-import {Feed} from '../components/Feed';
+import {Feed} from './Feed';
 
 export default function FeedLauncher({data, navigation, hideComment}) {
   const renderItem = ({item}) => {
