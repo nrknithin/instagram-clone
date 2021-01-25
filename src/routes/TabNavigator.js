@@ -1,12 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import StackNavigator from '../routes/StackNavigator';
+import FeedNavigator from '../routes/FeedNavigator';
 import Profile from '../screens/Profile';
 import Bookmark from '../screens/Bookmark';
 import Search from '../screens/Search';
 import Activities from '../screens/Activities';
 import {Icon} from 'react-native-ui-kitten';
+import BookmarkNavigator from './BookmarkNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,7 @@ export default function TabNavigator() {
         }}>
         <Tab.Screen
           name="Feeds"
-          component={StackNavigator}
+          component={FeedNavigator}
           options={{
             tabBarIcon: ({focused}) => {
               return (
@@ -52,7 +53,7 @@ export default function TabNavigator() {
         />
         <Tab.Screen
           name="Bookmark"
-          component={Bookmark}
+          component={BookmarkNavigator}
           options={{
             tabBarIcon: ({focused}) => {
               return (

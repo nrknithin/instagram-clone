@@ -1,18 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Feeds from '../screens/Feeds';
 import Comments from '../screens/Comments';
 import FeedHeader from '../components/Header';
+import Bookmark from '../screens/Bookmark';
 const Stack = createStackNavigator();
 
-export default function StackNavigator() {
+export default function BookmarkNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Feeds"
-        component={Feeds}
-        options={{headerTitle: (props) => <FeedHeader />}}
-      />
+      <Stack.Screen name="Bookmark" component={Bookmark} />
       <Stack.Screen name="Comments" component={Comments} />
     </Stack.Navigator>
   );

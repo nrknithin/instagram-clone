@@ -4,7 +4,7 @@ import {Avatar, Icon} from 'react-native-ui-kitten';
 import {DataContext} from '../context/DataContext';
 import {FeedTitle} from './FeedTitle';
 
-export function Feed({item, navigation, hideComment}) {
+export function Feed({item, navigation}) {
   const [like, setLike] = useState(false);
   const [bkicon, setBkicon] = useState(false);
   const {removeBookmark, bookmark, addBookmark} = useContext(DataContext);
@@ -73,7 +73,7 @@ export function Feed({item, navigation, hideComment}) {
           />
           <Icon
             style={styles.icon}
-            onPress={() => navigation.push('Comments')}
+            onPress={() => navigation.navigate('Comments')}
             name="message-circle-outline"
             width={30}
             height={30}
@@ -118,7 +118,7 @@ export function Feed({item, navigation, hideComment}) {
       </View>
 
       <TouchableOpacity
-        style={{marginLeft: 5, display: hideComment ? 'none' : 'flex'}}
+        style={{marginLeft: 5}}
         onPress={() => navigation.navigate('Comments')}>
         <Text
           category="p2"

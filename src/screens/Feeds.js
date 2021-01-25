@@ -14,7 +14,5 @@ export default function Feeds({navigation}) {
     }
   }, [feedData]);
 
-  return (
-    <FeedLauncher data={feedData} navigation={navigation} hideComment={false} />
-  );
+  return <FeedLauncher data={feedData} navigation={navigation} />;
 }

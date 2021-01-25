@@ -5,7 +5,5 @@ import {DataContext} from '../context/DataContext';
 export default function Bookmark({navigation}) {
   const {bookmark} = useContext(DataContext);
 
-  return (
-    <FeedLauncher data={bookmark} navigation={navigation} hideComment={true} />
-  );
+  return <FeedLauncher data={bookmark} navigation={navigation} />;
 }
