@@ -1,30 +1,11 @@
-import React, {useEffect, useContext} from 'react';
-import {
-  Button,
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
-import {Feed} from '../components/Feed';
+import React, {useContext} from 'react';
+import FeedLauncher from '../components/FeedLauncher';
 import {DataContext} from '../context/DataContext';
 
 export default function Bookmark({navigation}) {
   const {bookmark} = useContext(DataContext);
 
-  const renderItem = ({item}) => {
-    return <Feed item={item} navigation={navigation} hideComment={true} />;
-  };
-
   return (
-    <View style={{flex: 1}}>
-      <FlatList
-        data={bookmark}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
+    <FeedLauncher data={bookmark} navigation={navigation} hideComment={true} />
   );
 }

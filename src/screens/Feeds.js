@@ -1,15 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Button,
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
 import {getFeeds} from '../api/Api';
-import {Feed} from '../components/Feed';
+import FeedLauncher from '../components/FeedLauncher';
 
 export default function Feeds({navigation}) {
   const [feedData, setFeedData] = useState();
@@ -17,20 +8,12 @@ export default function Feeds({navigation}) {
     getFeeds().then((r) => setFeedData([...r.data]));
   };
   useEffect(() => {
-    handleFeeds();
-  }, []);
-
-  const renderItem = ({item}) => {
-    return <Feed item={item} navigation={navigation} />;
-  };
+    if (!feedData) {
+      handleFeeds();
+    }
+  }, [feedData]);
 
   return (
-    <View style={{flex: 1}}>
-      <FlatList
-        data={feedData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
+    <FeedLauncher data={feedData} navigation={navigation} hideComment={false} />
   );
 }

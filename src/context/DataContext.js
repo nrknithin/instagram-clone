@@ -1,26 +1,35 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 export const DataContext = createContext();
 
 export function DataContextProvider({children}) {
-  const [bookmark, setBookmark] = useState([
-    {
-      channelname: 'Teela Cunningham',
-      'high thumbnail': 'https://i.ytimg.com/vi/GYxGEHCcl98/maxresdefault.jpg',
-      id: 'GYxGEHCcl98',
-      'low thumbnail': 'https://i.ytimg.com/vi/GYxGEHCcl98/default.jpg',
-      'medium thumbnail': 'https://i.ytimg.com/vi/GYxGEHCcl98/hqdefault.jpg',
-      tags: [],
-      title: '3 Simple Tricks for Unique Acrylic Textures',
-    },
-  ]);
+  const [bookmark, setBookmark] = useState([]);
+  useEffect(() => {
+    console.log('danger');
+    AsyncStorage.getItem('APP::BOOKMARK').then((value) => {
+      if (value) {
+        setBookmark(JSON.parse(value));
+      }
+    });
+  }, []);
+  useEffect(() => {
+    if (bookmark !== null) {
+      AsyncStorage.setItem('APP::BOOKMARK', JSON.stringify(bookmark));
+    }
+  }, [bookmark]);
   const addBookmark = (item) => {
-    console.log('add');
     setBookmark([...bookmark, item]);
+    console.log(bookmark);
   };
   const removeBookmark = (id) => {
-    console.log('remove');
-    setBookmark(bookmark.filter((item) => item.id !== id));
+    setBookmark(
+      bookmark.filter((bk) => {
+        return bk.id !== id;
+      }),
+    );
+    console.log(bookmark);
   };
+
   return (
     <DataContext.Provider value={{bookmark, addBookmark, removeBookmark}}>
       {children}

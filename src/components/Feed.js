@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Avatar, Icon} from 'react-native-ui-kitten';
 import {DataContext} from '../context/DataContext';
@@ -6,20 +6,18 @@ import {FeedTitle} from './FeedTitle';
 
 export function Feed({item, navigation, hideComment}) {
   const [like, setLike] = useState(false);
-  const {bookmark, addBookmark, removeBookmark} = useContext(DataContext);
+  const [bkicon, setBkicon] = useState(false);
+  const {removeBookmark, bookmark, addBookmark} = useContext(DataContext);
 
-  const addremoveBK = (feed) => {
-    bookmark.forEach((element) => {
-      if (element.id === feed.id) {
-        removeBookmark(feed.id);
-      } else {
-        addBookmark(feed);
-      }
-    });
-    // console.log(bookmark);
+  const addRemoveBK = (feed) => {
+    bkicon ? removeBookmark(feed.id) : addBookmark(feed);
   };
-
-  // console.log(bookmark);
+  useEffect(() => {
+    let newbkicon = bookmark.filter((bk) => {
+      return bk.id === item.id;
+    });
+    setBkicon(newbkicon.length ? true : false);
+  });
   return (
     <View style={styles.card}>
       <View
@@ -92,10 +90,9 @@ export function Feed({item, navigation, hideComment}) {
           <Icon
             style={styles.icon}
             onPress={() => {
-              addremoveBK(item);
+              addRemoveBK(item);
             }}
-            name="bookmark-outline"
-            // name={bookmark ? 'bookmark' : 'bookmark-outline'}
+            name={bkicon ? 'bookmark' : 'bookmark-outline'}
             width={30}
             height={30}
             fill={'#111'}
@@ -114,6 +111,7 @@ export function Feed({item, navigation, hideComment}) {
             flex: 1,
           }}>
           <Text style={{...styles.cardTitle}}>{item.channelname + ' '}</Text>
+          {/* <Text>{item.title}</Text> */}
           <FeedTitle title={item.title} />
         </View>
       </View>
